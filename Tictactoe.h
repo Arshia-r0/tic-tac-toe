@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 #include <ostream>
+#include "include/rang.hpp"
+
 
 
 class Tictactoe

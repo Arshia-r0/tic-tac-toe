@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <limits>
+#include "include/rang.hpp"
 
 
 Tictactoe::Tictactoe(int s) :
@@ -15,9 +16,9 @@ std::ostream& operator<<(std::ostream& COUT, const Tictactoe& tic) {
     std::cout << "round " << tic.round << ":\n";
     for(int i = 0; i < tic.grid_size; i++) {
         if(tic.board[i] == -2) {
-            COUT << " X";
+            COUT << rang::fg::blue << " X" << rang::fg::reset;
         } else if(tic.board[i] == -1) {
-            COUT << " O";
+            COUT << rang::fg::red << " O" << rang::fg::reset;
         } else {
             std::cout << " " << i+1;
         }
@@ -67,11 +68,7 @@ void Tictactoe::checkResult() {
             return;
         }
     }
-    // draw on last round
-    if(round == grid_size - 1) {
-        winner = -3;                                      
-        return;
-    }                                                      
+    if(round == grid_size+1) winner = -3;
 }
 
 void Tictactoe::getInput() {
@@ -112,4 +109,9 @@ void Tictactoe::startGame() {
     }
     char w = winner == -1 ? 'O' : 'X';
     std::cout << "\n" << w << " Wins!\n"; 
+    if(winner == -1) {
+        std::cout << rang::fg::red << "\n" << "O Wins!";
+        return;
+    }
+    std::cout << rang::fg::blue << "\n" << "X Wins!";
 }
